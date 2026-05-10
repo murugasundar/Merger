@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Merger</title>
+    <style>
+        body { font-family: Arial; padding: 40px; background:linear-gradient(to right,white,rgb(107, 185, 236)); }
+        .box { background:linear-gradient(to right,rgb(107, 185, 236),white); max-width: 450px; margin: auto; padding: 30px; border-radius: 8px; box-shadow: 0px 0px 10px black ; }
+        h2 { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }    
+        input { width: 100%; padding: 8px; margin-bottom: 15px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0px 0px 10px black; background:linear-gradient(to right,white ,rgb(107, 185, 236)); color: white; &&:hover{background:linear-gradient(to right,rgb(107, 185, 236),white);} cursor: pointer;}
+        button { background-color:rgb(107, 185, 236); color: black;font-weight: bolder; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 15px; box-shadow: 0px 0px 10px black; &&:hover{background-color: RED;}}
+        .msg { padding: 10px; margin-bottom: 15px; border-radius: 4px; background: #e6ffe6; color: green; border: 1px solid green; }
+
+        .err { background: #ffe6e6; color: red; border: 1px solid red; }
+     #h{text-align: center;}   
+    </style>
+</head>
+<body>
+    <h4 id="h">NOTE : The column name should be same of the two table</h4>
+<div class="box">
+    <h2>Excel Merger</h2>
+
+    {% if msg %}
+        <div class="msg {% if 'not' in msg %}err{% endif %}">
+            {{ msg }}
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Master File Path</label>
+        <input type="text" name="master_path" placeholder="C:\folder\master.xlsx">
+
+        <label>Master Sheet Name</label>
+        <input type="text" name="master_sheet" placeholder="e.g. Sheet1">
+
+        <label>Monthly File Path</label>
+        <input type="text" name="monthly_path" placeholder="C:\folder\monthly.xlsx">
+
+        <label>Monthly Sheet Name</label>
+        <input type="text" name="monthly_sheet" placeholder="e.g. Sheet1">
+
+        <label>Unique Key Column</label>
+        <input type="text" name="dedupe" placeholder="e.g. Order ID">
+
+        <button type="submit">Merge</button>
+    </form>
+</div>
+</body>
+</html>
